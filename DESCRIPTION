@@ -25,6 +25,7 @@ Imports:
     KernSmooth,
     prophet,
     raster,
+    Rcpp,
     sp,
     stats,
 RoxygenNote: 6.1.1

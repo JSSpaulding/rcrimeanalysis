@@ -29,7 +29,7 @@
 #' @examples
 #' \donttest{
 #' #Using provided dataset from Chicago Data Portal:
-#' crimes <- test:::crimes
+#' crimes <- rcrimeanalysis:::crimes
 #' test <- ts_month_decomp(crimes, 2017)
 #' plot(test)}
 #' @importFrom lubridate parse_date_time

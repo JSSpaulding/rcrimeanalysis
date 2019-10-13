@@ -16,7 +16,7 @@
 #' @examples
 #' \donttest{
 #' #Using provided dataset from Chicago Data Portal:
-#' crimes <- test:::crimes
+#' crimes <- rcrimeanalysis:::crimes
 #' library("leaflet") # needed to install basemap providers
 #' kde_map(crimes)}
 #' @importFrom grDevices contourLines

@@ -23,7 +23,7 @@ Plot the components of forecast generated using the \pkg{prophet}
 \examples{
 \donttest{
 #Using provided dataset from Chicago Data Portal:
-crimes <- test:::crimes
+crimes <- rcrimeanalysis:::crimes
 library(prophet)
 ts_daily_decomp(crimes)}
 }

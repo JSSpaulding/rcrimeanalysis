@@ -29,12 +29,11 @@
 #' @importFrom grDevices dev.off
 #' @importFrom grDevices gray.colors
 #' @importFrom grDevices png
-#' @importFrom stats bw.nrd0
+#' @importFrom raster raster
 #' @importFrom KernSmooth bkde2D
 #' @importFrom sp Polygons
 #' @importFrom sp Polygon
 #' @importFrom sp SpatialPolygons
-#' @import raster
 #' @import stats
 #' @export
 kde_int_comp <- function(data, start1, end1, start2, end2){
@@ -91,8 +90,8 @@ kde_int_comp <- function(data, start1, end1, start2, end2){
   dev.off() #temp plot of spgons2
 
   # Net Difference Plot -----
-  p1 <- raster(tmp) #read in tmp images as raster
-  p2 <- raster(tmp2)
+  p1 <- raster::raster(tmp) #read in tmp images as raster
+  p2 <- raster::raster(tmp2)
   diff <- p1 - p2 #diff between rasters
   return(diff)
 

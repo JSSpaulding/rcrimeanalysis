@@ -24,7 +24,7 @@ This function computes a kernel density estimate of crime
 \examples{
 \donttest{
 #Using provided dataset from Chicago Data Portal:
-crimes <- test:::crimes
+crimes <- rcrimeanalysis:::crimes
 library("leaflet") # needed to install basemap providers
 kde_map(crimes)}
 }

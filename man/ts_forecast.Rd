@@ -25,7 +25,7 @@ This function transforms traditional crime data for forecasting
 \examples{
 \donttest{
 #Using provided dataset from Chicago Data Portal:
-crimes <- test:::crimes
+crimes <- rcrimeanalysis:::crimes
 library(prophet)
 ts_forecast(crimes)}
 }

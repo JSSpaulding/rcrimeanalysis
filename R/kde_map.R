@@ -21,23 +21,22 @@
 #' kde_map(crimes)}
 #' @importFrom grDevices contourLines
 #' @importFrom grDevices heat.colors
-#' @importFrom stats bw.nrd0
 #' @importFrom KernSmooth bkde2D
 #' @importFrom sp Polygons
 #' @importFrom sp Polygon
 #' @importFrom sp SpatialPolygons
+#' @importFrom stats bw.nrd0
 #' @import leaflet
 #' @import htmltools
-#' @import stats
 #' @export
 kde_map <- function(data){
   lat <- as.numeric(data$latitude)
   lon <- as.numeric(data$longitude)
-  bwlat <- bw.nrd0(lat) #calculate bandwidth (lat) for KDE function
-  bwlon <- bw.nrd0(lon) #calculate bandwidth (lon) for KDE function
-  kde <- bkde2D(cbind(lon, lat), # calculates the KDE using calculated bandwidths
-                bandwidth=c(bwlon, bwlat), gridsize = c(100, 100))
-  CL <- contourLines(kde$x1 , kde$x2 , kde$fhat) #uses KDE to create contour lines
+  bwlat <- stats::bw.nrd0(lat) #calculate bandwidth (lat) for KDE function
+  bwlon <- stats::bw.nrd0(lon) #calculate bandwidth (lon) for KDE function
+  kde <- KernSmooth::bkde2D(cbind(lon, lat), # calculates the KDE using calculated bandwidths
+                            bandwidth=c(bwlon, bwlat), gridsize = c(100, 100))
+  CL <- grDevices::contourLines(kde$x1 , kde$x2 , kde$fhat) #uses KDE to create contour lines
 
   # Extract Contour Line Levels -----
   LEVS <- as.factor(sapply(CL, `[[`, "level"))
@@ -45,15 +44,15 @@ kde_map <- function(data){
 
   # Convert Contour Lines To Polygons -----
   pgons <- lapply(1:length(CL), function(i)
-    Polygons(list(Polygon(cbind(CL[[i]]$x, CL[[i]]$y))), ID = i))
-  spgons = SpatialPolygons(pgons)
+    sp::Polygons(list(sp::Polygon(cbind(CL[[i]]$x, CL[[i]]$y))), ID = i))
+  spgons = sp::SpatialPolygons(pgons)
   map <- leaflet(data) %>% addProviderTiles(providers$Esri.NatGeoWorldMap) %>%
-        addScaleBar(position = "bottomright") %>%
-        addPolygons(data = spgons, color = heat.colors(NLEV, NULL)[LEVS]) %>%
-        addCircles(lon, lat, popup = paste("Case Number:", data$case_number, "<br/>"
-                                          ,"Description:", data$description, "<br/>"
-                                          ,"District:", data$district, "<br/>"
-                                          ,"Beat:", data$beat, "<br/>"
-                                          ,"Date:", data$date), color ="purple")
+    addScaleBar(position = "bottomright") %>%
+    addPolygons(data = spgons, color = grDevices::heat.colors(NLEV, NULL)[LEVS]) %>%
+    addCircles(lon, lat, popup = paste("Case Number:", data$case_number, "<br/>"
+                                       ,"Description:", data$description, "<br/>"
+                                       ,"District:", data$district, "<br/>"
+                                       ,"Beat:", data$beat, "<br/>"
+                                       ,"Date:", data$date), color ="purple")
   return(map)
 }

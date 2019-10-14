@@ -18,10 +18,10 @@
 #' crimes <- rcrimeanalysis:::crimes
 #' library(prophet)
 #' ts_daily_decomp(crimes)}
+#' @importFrom stats predict
 #' @import dplyr
 #' @import prophet
 #' @import Rcpp
-#' @import stats
 #' @export
 ts_daily_decomp <- function(data){
   data$date <- as.Date(data$date, "%m/%d/%Y")
@@ -33,7 +33,7 @@ ts_daily_decomp <- function(data){
   # Forecast with Daily Data -----
   m <- prophet(z,daily.seasonality=TRUE) #performs fitting and returns a model object
   future <- make_future_dataframe(m, periods = 365) #produce suitable dataframe
-  forecast <- predict(m, future)  #forecast
+  forecast <- stats::predict(m, future)  #forecast
 
   # Forecast Broken into Trend, Daily, Weekly, and Yearly seasonality -----
   p_decomp <- prophet_plot_components(m, forecast)

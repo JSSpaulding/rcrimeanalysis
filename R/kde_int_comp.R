@@ -34,7 +34,7 @@
 #' @importFrom sp Polygons
 #' @importFrom sp Polygon
 #' @importFrom sp SpatialPolygons
-#' @import stats
+#' @importFrom stats bw.nrd0
 #' @export
 kde_int_comp <- function(data, start1, end1, start2, end2){
   # Date Transformation and Interval Creation -----
@@ -47,47 +47,47 @@ kde_int_comp <- function(data, start1, end1, start2, end2){
   # Interval 1 KDE Contours -----
   lat1 <- as.numeric(interval1$latitude)
   lon1 <- as.numeric(interval1$longitude)
-  bwlat1 <- bw.nrd0(lat1) #calculate bandwidth (lat) for KDE function
-  bwlon1 <- bw.nrd0(lon1) #calculate bandwidth (lon) for KDE function
-  kde1 <- bkde2D(cbind(lon1, lat1), #KDE using calculated bandwidths
-                 bandwidth=c(bwlon1, bwlat1), gridsize = c(100, 100))
-  CL1 <- contourLines(kde1$x1, kde1$x2, kde1$fhat) #uses KDE to create contour lines
+  bwlat1 <- stats::bw.nrd0(lat1) #calculate bandwidth (lat) for KDE function
+  bwlon1 <- stats::bw.nrd0(lon1) #calculate bandwidth (lon) for KDE function
+  kde1 <- KernSmooth::bkde2D(cbind(lon1, lat1), #KDE using calculated bandwidths
+                             bandwidth=c(bwlon1, bwlat1), gridsize = c(100, 100))
+  CL1 <- grDevices::contourLines(kde1$x1, kde1$x2, kde1$fhat) #uses KDE to create contour lines
   LEVS1 <- as.factor(sapply(CL1, `[[`, "level")) #extract contour line levels
   NLEV1 <- length(levels(LEVS1)) #number of contour levels
 
   # Convert Contour Lines To Polygons -----
   pgons1 <- lapply(1:length(CL1), function(i)
-    Polygons(list(Polygon(cbind(CL1[[i]]$x, CL1[[i]]$y))), ID = i))
-  spgons1 = SpatialPolygons(pgons1)
+    sp::Polygons(list(sp::Polygon(cbind(CL1[[i]]$x, CL1[[i]]$y))), ID = i))
+  spgons1 = sp::SpatialPolygons(pgons1)
 
   # Interval 2 KDE Contours -----
   lat2 <- as.numeric(interval2$latitude)
   lon2 <- as.numeric(interval2$longitude)
   bwlat2 <- bw.nrd0(lat2)
   bwlon2 <- bw.nrd0(lon2)
-  kde2 <- bkde2D(cbind(lon2,lat2),
-                 bandwidth = c(bwlon2, bwlat2), gridsize = c(100, 100))
-  CL2 <- contourLines(kde2$x1 , kde2$x2 , kde2$fhat)
+  kde2 <- KernSmooth::bkde2D(cbind(lon2,lat2),
+                             bandwidth = c(bwlon2, bwlat2), gridsize = c(100, 100))
+  CL2 <- grDevices::contourLines(kde2$x1 , kde2$x2 , kde2$fhat)
   LEVS2 <- as.factor(sapply(CL2, `[[`, "level"))
   NLEV2 <- length(levels(LEVS2))
   pgons2 <- lapply(1:length(CL2), function(i)
-    Polygons(list(Polygon(cbind(CL2[[i]]$x, CL2[[i]]$y))), ID = i))
-  spgons2 = SpatialPolygons(pgons2)
+    sp::Polygons(list(sp::Polygon(cbind(CL2[[i]]$x, CL2[[i]]$y))), ID = i))
+  spgons2 = sp::SpatialPolygons(pgons2)
 
   # Create Raster of Each Heatmap Interval -----
   if(length(unique(LEVS1)) > length(unique(LEVS2))){
-    grad <- gray.colors(length(unique(LEVS1)))
-  } else(grad <- gray.colors(length(unique(LEVS2))))
+    grad <- grDevices::gray.colors(length(unique(LEVS1)))
+  } else(grad <- grDevices::gray.colors(length(unique(LEVS2))))
   tmp <- tempfile()
-  png(tmp, bg = "transparent")
-  plot.new()
-  plot(spgons1, stroke = TRUE, col = grad[LEVS1], border = grad[LEVS1])
-  dev.off() #temp plot of spgons1
+  grDevices::png(tmp, bg = "transparent")
+  graphics::plot.new()
+  raster::plot(spgons1, stroke = TRUE, col = grad[LEVS1], border = grad[LEVS1])
+  grDevices::dev.off() #temp plot of spgons1
   tmp2 <- tempfile()
-  png(tmp2, bg = "transparent")
-  plot.new()
-  plot(spgons2, stroke = TRUE, col = grad[LEVS2], border = grad[LEVS2])
-  dev.off() #temp plot of spgons2
+  grDevices::png(tmp2, bg = "transparent")
+  graphics::plot.new()
+  raster::plot(spgons2, stroke = TRUE, col = grad[LEVS2], border = grad[LEVS2])
+  grDevices::dev.off() #temp plot of spgons2
 
   # Net Difference Plot -----
   p1 <- raster::raster(tmp) #read in tmp images as raster

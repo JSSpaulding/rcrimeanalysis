@@ -33,7 +33,8 @@
 #' test <- ts_month_decomp(crimes, 2017)
 #' plot(test)}
 #' @importFrom lubridate parse_date_time
-#' @import stats
+#' @importFrom stats stl
+#' @importFrom stats ts
 #' @export
 ts_month_decomp <- function(data,start){
   ## Transform Data into Time Series ----
@@ -41,12 +42,12 @@ ts_month_decomp <- function(data,start){
   data$my <- format(as.Date(data$date), "%m/%Y") #Add Month/Year Column
   dates <- unique(data$my) #get unique dates
   z <- as.data.frame(table(data$my))
-  z$Var1 <- parse_date_time(z$Var1, orders = "%m/%Y") #parses an z into POSIXct date-time object
+  z$Var1 <- lubridate::parse_date_time(z$Var1, orders = "%m/%Y") #parses an z into POSIXct date-time object
   z$Var1 <- z[order(as.Date(z$Var1)),] #order by date
   dat <- z[,1]
-  dataseries <- ts(dat$Freq, frequency=12, start=c(start,1)) #frequency=12 months, specify start date and that data is monthly (2001,1)
-  dataseries #view df of incident frequencies
-  ## Decomposition
-  ds_decomposed <- stl(dataseries, "per") #plot decomposed times series
+  dataseries <- stats::ts(dat$Freq, frequency=12, start=c(start,1)) #frequency=12 months, specify start date and that data is monthly (2001,1)
+
+  ## Decomposition -----
+  ds_decomposed <- stats::stl(dataseries, "per") #plot decomposed times series
   return(ds_decomposed)
 }

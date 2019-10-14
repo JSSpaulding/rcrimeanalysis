@@ -52,6 +52,8 @@
 #' @importFrom sp spTransform
 #' @importFrom igraph graph_from_adjacency_matrix
 #' @importFrom igraph components
+#' @importFrom stats complete.cases
+#' @importFrom stats dist
 #' @export
 near_repeat_analysis <- function(data, epsg, dist_thresh=NULL, time_thresh=NULL, tz=NULL){
   # Set Defaults -----
@@ -63,26 +65,26 @@ near_repeat_analysis <- function(data, epsg, dist_thresh=NULL, time_thresh=NULL,
   # Date Formats -----
   data$datetime <- as.POSIXct(data$date, tz = tz, "%m/%d/%Y %H:%M") #date-time object
   data$date <- as.Date(data$date, "%m/%d/%Y %H:%M") #ensure date column is in Date format
-  crime <- data[complete.cases(data), ] #only complete cases
-  cord.dec = SpatialPoints(cbind(crime$longitude, crime$latitude),
-                           proj4string = CRS("+proj=longlat")) #object of spatial points class
+  crime <- data[stats::complete.cases(data), ] #only complete cases
+  cord.dec = sp::SpatialPoints(cbind(crime$longitude, crime$latitude),
+                               proj4string = sp::CRS("+proj=longlat")) #object of spatial points class
 
   # Transform Coordinates to UTM using EPSG -----
-  cord.UTM <- spTransform(cord.dec, CRS(crs)) #(lat,lon) to coordinate system in EPSG
+  cord.UTM <- sp::spTransform(cord.dec, sp::CRS(crs)) #(lat,lon) to coordinate system in EPSG
   coordsout <- as.data.frame(cord.UTM@coords) #makes df of coordinates
   crime$x1 <- coordsout$coords.x1 #bind coordinate 1 to crime data
   crime$x2 <- coordsout$coords.x2 #bind coordinate 2 to crime data
 
   # Near Repeat Analysis using Threshold Parameters -----
-  SpatDist <- as.matrix(dist(crime[,c('x1','x2')])) < dist_thresh  #1 if under distance
-  TimeDist <- as.matrix(dist(crime[,'date'])) < time_thresh #1 if incident under time
+  SpatDist <- as.matrix(stats::dist(crime[,c('x1','x2')])) < dist_thresh  #1 if under distance
+  TimeDist <- as.matrix(stats::dist(crime[,'date'])) < time_thresh #1 if incident under time
   AdjMat <- SpatDist * TimeDist #under both distance and under time
   row.names(AdjMat) <- crime[,'case_number'] #case numbers for labels in igraph
   colnames(AdjMat) <- crime[,'case_number'] #case numbers for labels in igraph
 
   # igraph network from adjacency matrix -----
-  G <- graph_from_adjacency_matrix(AdjMat, mode="undirected", diag = FALSE)
-  CompInfo <- components(G) #assigning the connected components
+  G <- igraph::graph_from_adjacency_matrix(AdjMat, mode="undirected", diag = FALSE)
+  CompInfo <- igraph::components(G) #assigning the connected components
   out <- data.frame(CompId=CompInfo$membership, CompNum=CompInfo$csize[CompInfo$membership])
   out <- out[out$CompNum!=1, ] #remove any series consisting of 1 incident
   #NOTES for `out':
@@ -96,13 +98,13 @@ near_repeat_analysis <- function(data, epsg, dist_thresh=NULL, time_thresh=NULL,
   for (i in datalist) {
     cases <- rownames(i) #get case numbers of series
     a <- crime[crime$case_number %in% cases,] #incident information of case numbers
-    SpatDist <- as.matrix(dist(a[,c('x1', 'x2')])) < dist_thresh
-    TimeDist <- as.matrix(dist(a[,'date'])) < time_thresh
+    SpatDist <- as.matrix(stats::dist(a[,c('x1', 'x2')])) < dist_thresh
+    TimeDist <- as.matrix(stats::dist(a[,'date'])) < time_thresh
     AdjMat <- SpatDist * TimeDist
     row.names(AdjMat) <- a[,'case_number']
     colnames(AdjMat) <- a[,'case_number']
     #create network of cases from each series
-    nr_out[[jj]] <- graph_from_adjacency_matrix(AdjMat, mode="undirected", diag = FALSE)
+    nr_out[[jj]] <- igraph::graph_from_adjacency_matrix(AdjMat, mode="undirected", diag = FALSE)
     jj <- jj+1
   }
   return(nr_out)

@@ -33,7 +33,7 @@ ts_forecast <- function(data){
   colnames(z) <- c("ds", "y")
 
   # Forecast with Daily Data -----
-  m <- prophet(z,daily.seasonality=TRUE) #performs fitting and returns a model object
+  m <- prophet(z, daily.seasonality = TRUE) #performs fitting and returns a model object
   future <- make_future_dataframe(m, periods = 365) #produce suitable dataframe
   forecast <- predict(m, future)  #forecast
   fcast <- plot(m, forecast, xlabel = "Date", ylabel = "Number of Incidents") #plot the forecast

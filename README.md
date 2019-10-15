@@ -1,5 +1,10 @@
 # rcrimeanalysis: An Implementation of Crime Analysis Tools for R
 
+<!-- badges: start -->
+[![Build 
+Status](https://travis-ci.org/JSSpaulding/rcrimeanalysis.svg?branch=master)](https://travis-ci.org/JSSpaulding/rcrimeanalysis)
+<!-- badges: end -->
+
 ## Overview
 
 **rcrimeanalysis** is a package containing various functions for the analysis of crime incident or records management system (RMS) data. The package implements analysis algorithms scaled for city or regional crime analysis units including kernel density estimation for crime heat maps, geocoding using the Google Maps API, spatio-temporal map comparison across time intervals, time series analysis (forecasting and decomposition), and near repeat analysis (with crime network linkage). The package also contains an example dataset of Chicago crime incident data. The incidents were acquired from the [Chicago Data Portal](https://data.cityofchicago.org/Public-Safety/Crimes-2001-to-present/ijzp-q8t2). From these data, the set was subset to 25000 incidents of various primary types from 2017 to 2019.

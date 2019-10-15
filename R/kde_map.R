@@ -46,10 +46,10 @@ kde_map <- function(data){
   pgons <- lapply(1:length(CL), function(i)
     sp::Polygons(list(sp::Polygon(cbind(CL[[i]]$x, CL[[i]]$y))), ID = i))
   spgons = sp::SpatialPolygons(pgons)
-  map <- leaflet(data) %>% addProviderTiles(providers$Esri.NatGeoWorldMap) %>%
-    addScaleBar(position = "bottomright") %>%
-    addPolygons(data = spgons, color = grDevices::heat.colors(NLEV, NULL)[LEVS]) %>%
-    addCircles(lon, lat, popup = paste("Case Number:", data$case_number, "<br/>"
+  map <- leaflet::leaflet(data) %>% leaflet::addProviderTiles(leaflet::providers$Esri.NatGeoWorldMap) %>%
+    leaflet::addScaleBar(position = "bottomright") %>%
+    leaflet::addPolygons(data = spgons, color = grDevices::heat.colors(NLEV, NULL)[LEVS]) %>%
+    leaflet::addCircles(lon, lat, popup = paste("Case Number:", data$case_number, "<br/>"
                                        ,"Description:", data$description, "<br/>"
                                        ,"District:", data$district, "<br/>"
                                        ,"Beat:", data$beat, "<br/>"

@@ -33,6 +33,7 @@
 #' #Using provided dataset from Chicago Data Portal:
 #' crimes <- data.frame(rcrimeanalysis:::crimes)
 #' nr_data <- head(crimes,n=5000) #truncate dataset for near repeat analysis
+#' library("rgdal")
 #' out <- near_repeat_analysis(data=nr_data,tz="America/Chicago",epsg="32616")
 #' path <- paste0(getwd(),"/netout") #path for iGraph networks out
 #' name <- 1

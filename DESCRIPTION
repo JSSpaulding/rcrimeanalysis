@@ -2,8 +2,7 @@ Package: rcrimeanalysis
 Type: Package
 Title: rcrimeanalysis: An Implementation of Crime Analysis Tools for R
 Version: 0.1.0
-Author: person("Jamie", "Spaulding", email = "jspauldi@mix.wvu.edu", role = c("aut", "cre")),
-    person("Keith", "Morris", email = "keith.morris@mail.wvu.edu", role = "ctb")
+Author: Jamie Spaulding and Keith Morris
 Maintainer: Jamie Spaulding <jspauldi@mix.wvu.edu>
 Description: An implementation of functions for the analysis of crime incident or records
   management system (RMS) data. The package implements analysis algorithms scaled for city

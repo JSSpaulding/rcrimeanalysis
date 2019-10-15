@@ -1,6 +1,6 @@
 Package: rcrimeanalysis
 Type: Package
-Title: rcrimeanalysis: An Implementation of Crime Analysis Tools for R
+Title: An Implementation of Crime Analysis Tools for R
 Version: 0.1.0
 Author: Jamie Spaulding and Keith Morris
 Maintainer: Jamie Spaulding <jspauldi@mix.wvu.edu>

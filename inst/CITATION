@@ -1,0 +1,16 @@
+citHeader("To cite rcrimeanalysis in publications use:")
+
+citEntry(entry = "Manual",
+  title        = "rcrimeanalysis: An Implementation of Crime Analysis Tools for R",
+  author       = personList(as.person("Jamie Spaulding"),
+                   as.person("Keith Morris")),
+  year         = "2019",
+  note         = "R package version 0.1.0",
+  url          = "https://github.com/JSSpaulding/rcrimeanalysis",
+
+  textVersion  =
+  paste("Jamie Spaulding, Keith Morris (2019).",
+        "rcrimeanalysis: An Implementation of Crime.",
+        "Analysis Tools for R. R package version 0.1.0.",
+        "URL https://github.com/JSSpaulding/rcrimeanalysis.")
+)

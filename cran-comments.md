@@ -4,19 +4,21 @@
 * win-builder (devel and release)
 
 ## R CMD check results
-There were no ERRORs or WARNINGs. 
+Duration: 2m 56.7s
 
-There was 1 NOTE:
+0 errors v | 0 warnings v | 0 notes v
 
-* checking R code for possible problems ... NOTE
-
-  kde_map: no visible binding for global variable 'providers'
-  Undefined global functions or variables: providers
-  
-  'providers' is defined by the 'leaflet' package. The 
-  example uses an ESRI basemap from the imported 'leaflet' package.
-  In the example, I call the 'leaflet' package to load the basemaps.
+R CMD check succeeded
 
 ## Other Comments
 This is a first submission of the package. Please let me know if there
 is anything else that I can do to help this process.
+
+I believe that the note is due to the pacakge being a first submission.
+
+The win-build check identified 3 Possibly mis-spelled words in DESCRIPTION:
+RMS (8:22)
+geocoding (10:35)
+spatio (10:72)
+I have checked and all of these words are all appropriate nomenclature for what
+the process is performing.

@@ -1,16 +1,16 @@
 Package: rcrimeanalysis
 Type: Package
-Title: An Implementation of Crime Analysis Tools for R
+Title: An Implementation of Crime Analysis Methods
 Version: 0.1.0
 Author: Jamie Spaulding and Keith Morris
 Maintainer: Jamie Spaulding <jspauldi@mix.wvu.edu>
 Description: An implementation of functions for the analysis of crime incident or records
-  management system (RMS) data. The package implements analysis algorithms scaled for city
+  management system data. The package implements analysis algorithms scaled for city
   or regional crime analysis units. The package provides functions for kernel density
-  estimation for crime heat maps, geocoding using the Google Maps API, spatio-temporal
+  estimation for crime heat maps, geocoding using the 'Google Maps API', spatio-temporal
   map comparison across time intervals, time series analysis (forecasting and decomposition),
   and near repeat analysis (with crime network linkage).
-Depends: R (>= 3.1.0)
+Depends: R (>= 3.5.0)
 License: GPL-3
 Encoding: UTF-8
 LazyData: true
@@ -25,6 +25,7 @@ Imports:
     prophet,
     raster,
     Rcpp,
+    rgdal,
     sp,
-    stats,
+    stats
 RoxygenNote: 6.1.1

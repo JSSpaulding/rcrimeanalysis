@@ -3,22 +3,22 @@
 
 #' Kernel Density Estimation and Heat Map Generation for Crime Incidents
 #' @description This function computes a kernel density estimate of crime
-#'     incident locations and returns a Leaflet map of the incidents. The data
+#'     incident locations and returns a 'Leaflet' map of the incidents. The data
 #'     is based on the Chicago Police Department RMS structure and populates
 #'     pop-up windows with the incident location for each incident.
 #' @param data Data frame of crime or RMS data. See provided Chicago Data Portal
 #'     example for reference
-#' @return A \pkg{Leaflet} map with three layers: an ESRI base-map, all crime
+#' @return A \pkg{Leaflet} map with three layers: an 'ESRI' base-map, all crime
 #'     incidents plotted (with incident info pop-up windows), and a kernel
 #'     density estimate of those points.
 #' @author Jamie Spaulding, Keith Morris
 #' @keywords spatial methods hplot dynamic
 #' @examples
-#' \donttest{
 #' #Using provided dataset from Chicago Data Portal:
-#' crimes <- rcrimeanalysis:::crimes
-#' library("leaflet") # needed to install basemap providers
-#' kde_map(crimes)}
+#' data(crimes)
+#' crimes <- head(crimes, 1000)
+#' library('leaflet') # needed to install basemap providers
+#' kde_map(crimes)
 #' @importFrom grDevices contourLines
 #' @importFrom grDevices heat.colors
 #' @importFrom KernSmooth bkde2D

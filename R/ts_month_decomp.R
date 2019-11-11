@@ -27,11 +27,10 @@
 #' @author Jamie Spaulding, Keith Morris
 #' @keywords ts
 #' @examples
-#' \donttest{
 #' #Using provided dataset from Chicago Data Portal:
-#' crimes <- rcrimeanalysis:::crimes
+#' data(crimes)
 #' test <- ts_month_decomp(crimes, 2017)
-#' plot(test)}
+#' plot(test)
 #' @importFrom lubridate parse_date_time
 #' @importFrom stats stl
 #' @importFrom stats ts

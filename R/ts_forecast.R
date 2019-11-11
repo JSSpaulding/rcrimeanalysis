@@ -15,9 +15,14 @@
 #' @author Jamie Spaulding, Keith Morris
 #' @keywords ts
 #' @examples
+#' \dontshow{
+#' data(crimes)
+#' crimes <- head(crimes, n = 100) #truncate dataset for tests
+#' library(prophet)
+#' ts_forecast(crimes)}
 #' \donttest{
 #' #Using provided dataset from Chicago Data Portal:
-#' crimes <- rcrimeanalysis:::crimes
+#' data(crimes)
 #' library(prophet)
 #' ts_forecast(crimes)}
 #' @importFrom graphics plot

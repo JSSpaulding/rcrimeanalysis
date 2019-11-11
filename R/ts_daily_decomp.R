@@ -13,9 +13,14 @@
 #' @author Jamie Spaulding, Keith Morris
 #' @keywords ts
 #' @examples
+#'  \dontshow{
+#' data(crimes)
+#' crimes <- head(crimes, n = 10) #truncate dataset for tests
+#' library(prophet)
+#' ts_daily_decomp(crimes)}
 #' \donttest{
 #' #Using provided dataset from Chicago Data Portal:
-#' crimes <- rcrimeanalysis:::crimes
+#' data(crimes)
 #' library(prophet)
 #' ts_daily_decomp(crimes)}
 #' @importFrom stats predict

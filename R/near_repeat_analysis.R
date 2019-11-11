@@ -29,24 +29,9 @@
 #' @author Jamie Spaulding, Keith Morris
 #' @keywords spatial
 #' @examples
-#' \donttest{
-#' #Using provided dataset from Chicago Data Portal:
-#' crimes <- data.frame(rcrimeanalysis:::crimes)
-#' nr_data <- head(crimes,n=5000) #truncate dataset for near repeat analysis
-#' library("rgdal")
+#' data(crimes)
+#' nr_data <- head(crimes, n = 3000) #truncate dataset for near repeat analysis
 #' out <- near_repeat_analysis(data=nr_data,tz="America/Chicago",epsg="32616")
-#' path <- paste0(getwd(),"/netout") #path for iGraph networks out
-#' name <- 1
-#' # Save Image of Each igraph Network to Netpath Directory
-#' library(igraph)
-#' for(i in out){
-#'     png(file = paste(path, "/series", name, ".png",sep = ""))
-#'     plot(i, layout=layout_with_lgl, edge.color="orange",
-#'     vertex.color="orange", vertex.frame.color="#ffffff",
-#'     vertex.label.color="black")
-#'     dev.off()
-#'     name <- name+1
-#' }}
 #'
 #' @importFrom sp SpatialPoints
 #' @importFrom sp CRS
@@ -78,10 +63,10 @@ near_repeat_analysis <- function(data, epsg, dist_thresh=NULL, time_thresh=NULL,
 
   # Near Repeat Analysis using Threshold Parameters -----
   SpatDist <- as.matrix(stats::dist(crime[,c('x1','x2')])) < dist_thresh  #1 if under distance
-  TimeDist <- as.matrix(stats::dist(crime[,'date'])) < time_thresh #1 if incident under time
+  TimeDist <- as.matrix(stats::dist(crime$date)) < time_thresh #1 if incident under time
   AdjMat <- SpatDist * TimeDist #under both distance and under time
-  row.names(AdjMat) <- crime[,'case_number'] #case numbers for labels in igraph
-  colnames(AdjMat) <- crime[,'case_number'] #case numbers for labels in igraph
+  row.names(AdjMat) <- crime$case_number #case numbers for labels in igraph
+  colnames(AdjMat) <- crime$case_number #case numbers for labels in igraph
 
   # igraph network from adjacency matrix -----
   G <- igraph::graph_from_adjacency_matrix(AdjMat, mode="undirected", diag = FALSE)
@@ -100,10 +85,10 @@ near_repeat_analysis <- function(data, epsg, dist_thresh=NULL, time_thresh=NULL,
     cases <- rownames(i) #get case numbers of series
     a <- crime[crime$case_number %in% cases,] #incident information of case numbers
     SpatDist <- as.matrix(stats::dist(a[,c('x1', 'x2')])) < dist_thresh
-    TimeDist <- as.matrix(stats::dist(a[,'date'])) < time_thresh
+    TimeDist <- as.matrix(stats::dist(a$date)) < time_thresh
     AdjMat <- SpatDist * TimeDist
-    row.names(AdjMat) <- a[,'case_number']
-    colnames(AdjMat) <- a[,'case_number']
+    row.names(AdjMat) <- a$case_number
+    colnames(AdjMat) <- a$case_number
     #create network of cases from each series
     nr_out[[jj]] <- igraph::graph_from_adjacency_matrix(AdjMat, mode="undirected", diag = FALSE)
     jj <- jj+1

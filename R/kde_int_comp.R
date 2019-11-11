@@ -17,13 +17,13 @@
 #' @author Jamie Spaulding, Keith Morris
 #' @keywords spatial methods hplot
 #' @examples
-#' \donttest{
 #' #Using provided dataset from Chicago Data Portal:
-#' crimes <- rcrimeanalysis:::crimes
+#' data(crimes)
 #' int_out <- kde_int_comp(crimes, start1="1/1/2017", end1="3/1/2017",
 #'                                 start2="1/1/2018", end2="3/1/2018")
 #' raster::plot(int_out) #plot of KDE differences
-#' raster::hist(int_out) #histogram of plot level differences}
+#' raster::hist(int_out) #histogram of plot level differences
+#' @import rgdal
 #' @importFrom graphics plot.new
 #' @importFrom grDevices contourLines
 #' @importFrom grDevices dev.off
@@ -81,12 +81,12 @@ kde_int_comp <- function(data, start1, end1, start2, end2){
   tmp <- tempfile()
   grDevices::png(tmp, bg = "transparent")
   graphics::plot.new()
-  raster::plot(spgons1, stroke = TRUE, col = grad[LEVS1], border = grad[LEVS1])
+  raster::plot(spgons1, col = grad[LEVS1], border = grad[LEVS1])
   grDevices::dev.off() #temp plot of spgons1
   tmp2 <- tempfile()
   grDevices::png(tmp2, bg = "transparent")
   graphics::plot.new()
-  raster::plot(spgons2, stroke = TRUE, col = grad[LEVS2], border = grad[LEVS2])
+  raster::plot(spgons2, col = grad[LEVS2], border = grad[LEVS2])
   grDevices::dev.off() #temp plot of spgons2
 
   # Net Difference Plot -----

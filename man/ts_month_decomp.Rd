@@ -36,11 +36,10 @@ This function transforms traditional crime data and plots the
     seasonal, trend and irregular components using Loess smoothing.
 }
 \examples{
-\donttest{
 #Using provided dataset from Chicago Data Portal:
-crimes <- rcrimeanalysis:::crimes
+data(crimes)
 test <- ts_month_decomp(crimes, 2017)
-plot(test)}
+plot(test)
 }
 \author{
 Jamie Spaulding, Keith Morris

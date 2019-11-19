@@ -21,9 +21,14 @@ Plot the components of forecast generated using the \pkg{prophet}
     seasonality components.
 }
 \examples{
+ \dontshow{
+data(crimes)
+crimes <- head(crimes, n = 10) #truncate dataset for tests
+library(prophet)
+ts_daily_decomp(crimes)}
 \donttest{
 #Using provided dataset from Chicago Data Portal:
-crimes <- rcrimeanalysis:::crimes
+data(crimes)
 library(prophet)
 ts_daily_decomp(crimes)}
 }

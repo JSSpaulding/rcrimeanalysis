@@ -30,7 +30,7 @@
 #' @keywords spatial
 #' @examples
 #' data(crimes)
-#' nr_data <- head(crimes, n = 3000) #truncate dataset for near repeat analysis
+#' nr_data <- head(crimes, n = 1000) #truncate dataset for near repeat analysis
 #' out <- near_repeat_analysis(data=nr_data,tz="America/Chicago",epsg="32616")
 #'
 #' @importFrom sp SpatialPoints

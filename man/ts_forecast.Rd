@@ -23,9 +23,14 @@ This function transforms traditional crime data for forecasting
     year period with a confidence interval based on historical crime data.
 }
 \examples{
+\dontshow{
+data(crimes)
+crimes <- head(crimes, n = 100) #truncate dataset for tests
+library(prophet)
+ts_forecast(crimes)}
 \donttest{
 #Using provided dataset from Chicago Data Portal:
-crimes <- rcrimeanalysis:::crimes
+data(crimes)
 library(prophet)
 ts_forecast(crimes)}
 }

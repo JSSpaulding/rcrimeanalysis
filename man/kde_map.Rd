@@ -11,22 +11,22 @@ kde_map(data)
 example for reference}
 }
 \value{
-A \pkg{Leaflet} map with three layers: an ESRI base-map, all crime
+A \pkg{Leaflet} map with three layers: an 'ESRI' base-map, all crime
     incidents plotted (with incident info pop-up windows), and a kernel
     density estimate of those points.
 }
 \description{
 This function computes a kernel density estimate of crime
-    incident locations and returns a Leaflet map of the incidents. The data
+    incident locations and returns a 'Leaflet' map of the incidents. The data
     is based on the Chicago Police Department RMS structure and populates
     pop-up windows with the incident location for each incident.
 }
 \examples{
-\donttest{
 #Using provided dataset from Chicago Data Portal:
-crimes <- rcrimeanalysis:::crimes
-library("leaflet") # needed to install basemap providers
-kde_map(crimes)}
+data(crimes)
+crimes <- head(crimes, 1000)
+library('leaflet') # needed to install basemap providers
+kde_map(crimes)
 }
 \author{
 Jamie Spaulding, Keith Morris

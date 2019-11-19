@@ -42,23 +42,9 @@ This function performs near repeat analysis for a set of incident
     thresholds).
 }
 \examples{
-\donttest{
-#Using provided dataset from Chicago Data Portal:
-crimes <- data.frame(rcrimeanalysis:::crimes)
-nr_data <- head(crimes,n=5000) #truncate dataset for near repeat analysis
+data(crimes)
+nr_data <- head(crimes, n = 3000) #truncate dataset for near repeat analysis
 out <- near_repeat_analysis(data=nr_data,tz="America/Chicago",epsg="32616")
-path <- paste0(getwd(),"/netout") #path for iGraph networks out
-name <- 1
-# Save Image of Each igraph Network to Netpath Directory
-library(igraph)
-for(i in out){
-    png(file = paste(path, "/series", name, ".png",sep = ""))
-    plot(i, layout=layout_with_lgl, edge.color="orange",
-    vertex.color="orange", vertex.frame.color="#ffffff",
-    vertex.label.color="black")
-    dev.off()
-    name <- name+1
-}}
 
 }
 \author{

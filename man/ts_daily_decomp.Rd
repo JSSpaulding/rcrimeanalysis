@@ -4,11 +4,14 @@
 \alias{ts_daily_decomp}
 \title{Time Series Forecast and Decomposition for Daily Crime Data}
 \usage{
-ts_daily_decomp(data)
+ts_daily_decomp(data, start)
 }
 \arguments{
 \item{data}{Data frame of crime or RMS data. See provided Chicago Data Portal
 example for reference}
+
+\item{start}{Start date for the time series being analyzed. The format is as
+follows: c('year', 'month', 'day'). See example below for reference.}
 }
 \value{
 Returns a list of four plots: the overall crime trend with forecast;
@@ -18,19 +21,15 @@ Returns a list of four plots: the overall crime trend with forecast;
 \description{
 Plot the components of forecast generated using the \pkg{prophet}
     which includes the overall crime trend and the daily, weekly, and yearly
-    seasonality components.
+    seasonality components. Holt Winters exponential smoothing is also
+    performed to the seasonality component for inproved trend resolution since
+    the data is in a daily format.
 }
 \examples{
- \dontshow{
-data(crimes)
-crimes <- head(crimes, n = 10) #truncate dataset for tests
-library(prophet)
-ts_daily_decomp(crimes)}
-\donttest{
 #Using provided dataset from Chicago Data Portal:
 data(crimes)
-library(prophet)
-ts_daily_decomp(crimes)}
+test <- ts_month_decomp(data = crimes, start = c(2017, 1, 1))
+plot(test)
 }
 \author{
 Jamie Spaulding, Keith Morris

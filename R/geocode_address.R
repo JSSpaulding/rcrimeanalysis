@@ -13,6 +13,11 @@
 #' @author Jamie Spaulding, Keith Morris
 #' @keywords spatial
 #' @examples
+#' \dontshow{
+#' library(ggmap) #needed to register Google Cloud Credentials
+#' register_google("AIzaSyC0uBlYRvcbZxNlKxt6eBb5blxasW9-zq0")
+#' addresses <- c("Milan Puskar Stadium, Morgantown, WV","Woodburn Hall, Morgantown, WV")
+#' geocode_address(addresses)}
 #' \donttest{
 #' library(ggmap) #needed to register Google Cloud Credentials
 #' register_google("**Google Cloud Credentials Here**")

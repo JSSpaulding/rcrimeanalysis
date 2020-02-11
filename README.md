@@ -1,8 +1,7 @@
 # rcrimeanalysis: An Implementation of Crime Analysis Methods
 
 <!-- badges: start -->
-[![Build 
-Status](https://travis-ci.org/JSSpaulding/rcrimeanalysis.svg?branch=master)](https://travis-ci.org/JSSpaulding/rcrimeanalysis)
+[![CRAN Version](https://www.r-pkg.org/badges/version-ago/rcrimeanalysis)
 <!-- badges: end -->
 
 ## Overview

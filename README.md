@@ -3,6 +3,7 @@
 <!-- badges: start -->
 ![CRAN Version](https://www.r-pkg.org/badges/version-ago/rcrimeanalysis)
 ![CRAN Downloads](https://cranlogs.r-pkg.org/badges/last-month/rcrimeanalysis)
+![Build Status](https://travis-ci.org/JSSpaulding/rcrimeanalysis.svg?branch=master)
 <!-- badges: end -->
 
 ## Overview

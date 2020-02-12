@@ -4,11 +4,14 @@
 \alias{kde_map}
 \title{Kernel Density Estimation and Heat Map Generation for Crime Incidents}
 \usage{
-kde_map(data)
+kde_map(data, pts = NULL)
 }
 \arguments{
 \item{data}{Data frame of crime or RMS data. See provided Chicago Data Portal
 example for reference}
+
+\item{pts}{Either true or false. Dictates whether the incident points will
+be plotted on the map widget. If \code{NULL}, the default value is \code{TRUE}.}
 }
 \value{
 A \pkg{Leaflet} map with three layers: an 'ESRI' base-map, all crime

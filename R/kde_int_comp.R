@@ -21,16 +21,21 @@
 #' data(crimes)
 #' int_out <- kde_int_comp(crimes, start1="1/1/2017", end1="3/1/2017",
 #'                                 start2="1/1/2018", end2="3/1/2018")
-#' raster::plot(int_out) #plot of KDE differences
-#' raster::hist(int_out) #histogram of plot level differences
 #' @import rgdal
+#' @import leaflet
 #' @importFrom graphics plot.new
 #' @importFrom grDevices contourLines
 #' @importFrom grDevices dev.off
 #' @importFrom grDevices gray.colors
 #' @importFrom grDevices png
-#' @importFrom raster raster
+#' @importFrom htmltools tags
 #' @importFrom KernSmooth bkde2D
+#' @importFrom leafsync sync
+#' @importFrom pals parula
+#' @importFrom raster crs
+#' @importFrom raster plot
+#' @importFrom raster raster
+#' @importFrom raster values
 #' @importFrom sp Polygons
 #' @importFrom sp Polygon
 #' @importFrom sp SpatialPolygons
@@ -60,6 +65,15 @@ kde_int_comp <- function(data, start1, end1, start2, end2){
     sp::Polygons(list(sp::Polygon(cbind(CL1[[i]]$x, CL1[[i]]$y))), ID = i))
   spgons1 = sp::SpatialPolygons(pgons1)
 
+  # KDE Map 1 -----
+  title1 <- htmltools::tags$p(htmltools::tags$style("p {color: black; font-size:18px}"),
+                                htmltools::tags$b(paste("Interval 1:", start1, "-", end1)))
+
+  map1 <- leaflet::leaflet(data) %>% leaflet::addProviderTiles(leaflet::providers$Esri.NatGeoWorldMap) %>%
+    leaflet::addScaleBar(position = "bottomright") %>%
+    leaflet::addControl(title1, position = "topright" ) %>%
+    leaflet::addPolygons(data = spgons1, color = grDevices::heat.colors(NLEV1, NULL)[LEVS1])
+
   # Interval 2 KDE Contours -----
   lat2 <- as.numeric(interval2$latitude)
   lon2 <- as.numeric(interval2$longitude)
@@ -73,6 +87,15 @@ kde_int_comp <- function(data, start1, end1, start2, end2){
   pgons2 <- lapply(1:length(CL2), function(i)
     sp::Polygons(list(sp::Polygon(cbind(CL2[[i]]$x, CL2[[i]]$y))), ID = i))
   spgons2 = sp::SpatialPolygons(pgons2)
+
+  # KDE Map 2 -----
+  title2 <- htmltools::tags$p(htmltools::tags$style("p {color: black; font-size:18px}"),
+                              htmltools::tags$b(paste("Interval 2:", start2, "-", end2)))
+
+  map2 <- leaflet::leaflet(data) %>% leaflet::addProviderTiles(leaflet::providers$Esri.NatGeoWorldMap) %>%
+    leaflet::addScaleBar(position = "bottomright") %>%
+    leaflet::addControl(title2, position = "topright" ) %>%
+    leaflet::addPolygons(data = spgons2, color = grDevices::heat.colors(NLEV2, NULL)[LEVS2])
 
   # Create Raster of Each Heatmap Interval -----
   if(length(unique(LEVS1)) > length(unique(LEVS2))){
@@ -93,6 +116,20 @@ kde_int_comp <- function(data, start1, end1, start2, end2){
   p1 <- raster::raster(tmp) #read in tmp images as raster
   p2 <- raster::raster(tmp2)
   diff <- p1 - p2 #diff between rasters
-  return(diff)
+  diff@extent@xmin <- min(map2$x$limits$lng)
+  diff@extent@xmax <- max(map2$x$limits$lng)
+  diff@extent@ymin <- min(map2$x$limits$lat)
+  diff@extent@ymax <- max(map2$x$limits$lat)
+  raster::crs(diff) <- sp::CRS("+proj=longlat +ellps=WGS84 +datum=WGS84 +no_defs")
+  raster::plot(diff)
+  options(warn = -1)
+  pal <- colorNumeric(pals::parula(200), raster::values(diff),
+                      na.color = "transparent")
+  diff_map <- leaflet::leaflet(data) %>% leaflet::addProviderTiles(leaflet::providers$Esri.NatGeoWorldMap) %>%
+    leaflet::addScaleBar(position = "bottomright") %>%
+    leaflet::addRasterImage(diff, colors = pal, opacity = 0.8 , project = TRUE) %>%
+    leaflet::addLegend(pal = pal, values = raster::values(diff), title = 'Net Difference')
+  diff_plot <- leafsync::sync(map1, map2, diff_map)
+  return(diff_plot)
 
 }

@@ -33,8 +33,6 @@ This function calculates and compares the kernel density estimate
 data(crimes)
 int_out <- kde_int_comp(crimes, start1="1/1/2017", end1="3/1/2017",
                                 start2="1/1/2018", end2="3/1/2018")
-raster::plot(int_out) #plot of KDE differences
-raster::hist(int_out) #histogram of plot level differences
 }
 \author{
 Jamie Spaulding, Keith Morris

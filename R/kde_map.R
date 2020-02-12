@@ -8,6 +8,8 @@
 #'     pop-up windows with the incident location for each incident.
 #' @param data Data frame of crime or RMS data. See provided Chicago Data Portal
 #'     example for reference
+#' @param pts Either true or false. Dictates whether the incident points will
+#'     be plotted on the map widget. If \code{NULL}, the default value is \code{TRUE}.
 #' @return A \pkg{Leaflet} map with three layers: an 'ESRI' base-map, all crime
 #'     incidents plotted (with incident info pop-up windows), and a kernel
 #'     density estimate of those points.
@@ -29,7 +31,11 @@
 #' @import leaflet
 #' @import htmltools
 #' @export
-kde_map <- function(data){
+kde_map <- function(data, pts = NULL){
+  if (is.null(pts)) {pts <- TRUE}
+  if (!is.logical(pts)) {
+    stop("pts must be specified as boolean: TRUE or FALSE")
+  }
   lat <- as.numeric(data$latitude)
   lon <- as.numeric(data$longitude)
   bwlat <- stats::bw.nrd0(lat) #calculate bandwidth (lat) for KDE function
@@ -46,13 +52,19 @@ kde_map <- function(data){
   pgons <- lapply(1:length(CL), function(i)
     sp::Polygons(list(sp::Polygon(cbind(CL[[i]]$x, CL[[i]]$y))), ID = i))
   spgons = sp::SpatialPolygons(pgons)
-  map <- leaflet::leaflet(data) %>% leaflet::addProviderTiles(leaflet::providers$Esri.NatGeoWorldMap) %>%
-    leaflet::addScaleBar(position = "bottomright") %>%
-    leaflet::addPolygons(data = spgons, color = grDevices::heat.colors(NLEV, NULL)[LEVS]) %>%
-    leaflet::addCircles(lon, lat, popup = paste("Case Number:", data$case_number, "<br/>"
-                                       ,"Description:", data$description, "<br/>"
-                                       ,"District:", data$district, "<br/>"
-                                       ,"Beat:", data$beat, "<br/>"
-                                       ,"Date:", data$date), color ="purple")
+  if (isTRUE(pts)){
+    map <- leaflet::leaflet(data) %>% leaflet::addProviderTiles(leaflet::providers$Esri.NatGeoWorldMap) %>%
+      leaflet::addScaleBar(position = "bottomright") %>%
+      leaflet::addPolygons(data = spgons, color = grDevices::heat.colors(NLEV, NULL)[LEVS]) %>%
+      leaflet::addCircles(lon, lat, popup = paste("Case Number:", data$case_number, "<br/>"
+                                                  ,"Description:", data$description, "<br/>"
+                                                  ,"District:", data$district, "<br/>"
+                                                  ,"Beat:", data$beat, "<br/>"
+                                                  ,"Date:", data$date), color ="purple")
+  } else {
+    map <- leaflet::leaflet(data) %>% leaflet::addProviderTiles(leaflet::providers$Esri.NatGeoWorldMap) %>%
+      leaflet::addScaleBar(position = "bottomright") %>%
+      leaflet::addPolygons(data = spgons, color = grDevices::heat.colors(NLEV, NULL)[LEVS])
+  }
   return(map)
 }

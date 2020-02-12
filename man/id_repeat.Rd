@@ -23,7 +23,8 @@ This function identifies crime incidents which occur at the same
 \examples{
 #Using provided dataset from Chicago Data Portal:
 data(crimes)
-id_repeat(crimes)
+crimes <- head(crimes, n = 1000)
+out <- id_repeat(crimes)
 }
 \author{
 Jamie Spaulding, Keith Morris

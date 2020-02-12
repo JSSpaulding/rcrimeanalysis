@@ -15,7 +15,8 @@
 #' @examples
 #' #Using provided dataset from Chicago Data Portal:
 #' data(crimes)
-#' id_repeat(crimes)
+#' crimes <- head(crimes, n = 1000)
+#' out <- id_repeat(crimes)
 #' @export
 id_repeat <- function(data){
   n_occur <- data.frame(table(data$block))

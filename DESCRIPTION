@@ -1,7 +1,7 @@
 Package: rcrimeanalysis
 Type: Package
 Title: An Implementation of Crime Analysis Methods
-Version: 0.3.1
+Version: 0.4.0
 Author: Jamie Spaulding and Keith Morris
 Maintainer: Jamie Spaulding <jspauldi@mix.wvu.edu>
 Description: An implementation of functions for the analysis of crime incident or records
@@ -16,6 +16,7 @@ Encoding: UTF-8
 LazyData: true
 Imports:
     dplyr,
+    forecast,
     ggmap,
     htmltools,
     igraph,

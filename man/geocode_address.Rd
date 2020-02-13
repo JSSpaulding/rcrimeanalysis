@@ -23,7 +23,7 @@ Geocodes a location (determines latitude and longitude from
 \examples{
 \dontshow{
 library(ggmap) #needed to register Google Cloud Credentials
-register_google("AIzaSyC0uBlYRvcbZxNlKxt6eBb5blxasW9-zq0")
+register_google("AIzaSyB29FxQZBTC3K8kVOG29KZJPvjbFVDhRFU")
 addresses <- c("Milan Puskar Stadium, Morgantown, WV","Woodburn Hall, Morgantown, WV")
 geocode_address(addresses)}
 \donttest{

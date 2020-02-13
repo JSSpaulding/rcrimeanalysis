@@ -21,7 +21,7 @@
 #'
 #' deg: integer (length 3) vector with the polynomial degrees for these smoothers.
 #'
-#' jump: integer (length 3) vector with the ‘jumps’ (skips) used for these smoothers.
+#' jump: integer (length 3) vector with the 'jumps' (skips) used for these smoothers.
 #'
 #' inner: number of inner iterations
 #' @author Jamie Spaulding, Keith Morris

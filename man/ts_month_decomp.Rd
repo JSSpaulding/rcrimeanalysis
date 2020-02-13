@@ -26,7 +26,7 @@ win: integer (length 3 vector) with the spans used for the "s", "t", and "l" smo
 
 deg: integer (length 3) vector with the polynomial degrees for these smoothers.
 
-jump: integer (length 3) vector with the ‘jumps’ (skips) used for these smoothers.
+jump: integer (length 3) vector with the 'jumps' (skips) used for these smoothers.
 
 inner: number of inner iterations
 }

@@ -14,21 +14,33 @@ example for reference}
 follows: c('year', 'month', 'day'). See example below for reference.}
 }
 \value{
-Returns a list of four plots: the overall crime trend with forecast;
-    the daily seasonality; the weekly seasonality; and the yearly seasonality
-    components.
+Returns an object of class "stl" with the following components:
+
+time.series: a multiple time series with columns seasonal, trend and remainder.
+
+weights: the final robust weights (all one if fitting is not done robustly).
+
+call: the matched call.
+
+win: integer (length 3 vector) with the spans used for the "s", "t", and "l" smoothers.
+
+deg: integer (length 3) vector with the polynomial degrees for these smoothers.
+
+jump: integer (length 3) vector with the 'jumps' (skips) used for these smoothers.
+
+inner: number of inner iterations
 }
 \description{
-Plot the components of forecast generated using the \pkg{prophet}
-    which includes the overall crime trend and the daily, weekly, and yearly
-    seasonality components. Holt Winters exponential smoothing is also
-    performed to the seasonality component for inproved trend resolution since
-    the data is in a daily format.
+This function transforms daily crime count data and plots the
+    resultant components of a time series which has been decomposed into
+    seasonal, trend, and irregular components using Loess smoothing. Holt
+    Winters exponential smoothing is also performed for inproved trend
+    resolution since data is in a daily format.
 }
 \examples{
 #Using provided dataset from Chicago Data Portal:
 data(crimes)
-test <- ts_month_decomp(data = crimes, start = c(2017, 1, 1))
+test <- ts_daily_decomp(data = crimes, start = c(2017, 1, 1))
 plot(test)
 }
 \author{

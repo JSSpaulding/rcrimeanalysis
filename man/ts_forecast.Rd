@@ -4,35 +4,35 @@
 \alias{ts_forecast}
 \title{Time Series Forecast for Daily Crime Data}
 \usage{
-ts_forecast(data)
+ts_forecast(data, start, duration = NULL)
 }
 \arguments{
 \item{data}{Data frame of crime or RMS data. See provided Chicago Data Portal
 example for reference}
+
+\item{start}{Start date for the time series being analyzed. The format is as
+follows: c('year', 'month', 'day'). See example below for reference.}
+
+\item{duration}{Number of days for the forecast. If \code{NULL}, the default
+duration for the forecast is 365 days.}
 }
 \value{
-Returns a plot which contains: the time series, a fitted confidence
-    interval, the projected forecast, and the confidence interval for that
-    forcast.
+Returns a plot of the time series entered (black), a forecast over the
+    specified duration (blue), the exponentially smoothed trend for both the
+    input data (red) and forecast (orange), and the upper and lower bounds for
+    the prediction interval (grey).
 }
 \description{
-This function transforms traditional crime data for forecasting
-    using the \pkg{prophet} procedure for forecasting time series data with
-    an additive model where non-linear trends are fit with yearly, weekly,
-    and daily seasonality. The function generates the forecast for a one
-    year period with a confidence interval based on historical crime data.
+This function transforms traditional crime data into a time
+    series and forecasts future incident counts based on the input data
+    over a specified duration. The forecast is computed using simple exponential
+    smoothing with additive errors. Returned is a plot of the time series, trend,
+    and the upper and lower prediction limits for the forecast.
 }
 \examples{
-\dontshow{
-data(crimes)
-crimes <- head(crimes, n = 100) #truncate dataset for tests
-library(prophet)
-ts_forecast(crimes)}
-\donttest{
 #Using provided dataset from Chicago Data Portal:
 data(crimes)
-library(prophet)
-ts_forecast(crimes)}
+ts_forecast(crimes, start = c(2017, 1, 1))
 }
 \author{
 Jamie Spaulding, Keith Morris

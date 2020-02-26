@@ -19,8 +19,10 @@ example for reference}
 \item{end2}{Final date for the second interval of comparison}
 }
 \value{
-Returns a \emph{RasterLayer} object of the net differences between
-    kernel density estimates (heat maps) of each specified interval.
+Returns a \emph{shiny.tag.list} object which contains three leaflet
+    widgets: a widget with the calculated KDE from interval 1, a widget with
+    the calculated KDE from interval 2, and a widget with a raster of the
+    net differences between the KDE (heat maps) of each specified interval.
 }
 \description{
 This function calculates and compares the kernel density estimate
@@ -37,6 +39,7 @@ int_out <- kde_int_comp(crimes, start1="1/1/2017", end1="3/1/2017",
 \author{
 Jamie Spaulding, Keith Morris
 }
+\keyword{dynamic}
 \keyword{hplot}
 \keyword{methods}
 \keyword{spatial}

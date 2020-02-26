@@ -29,7 +29,4 @@ out <- id_repeat(crimes)
 \author{
 Jamie Spaulding, Keith Morris
 }
-\keyword{dynamic}
-\keyword{hplot}
-\keyword{methods}
 \keyword{spatial}

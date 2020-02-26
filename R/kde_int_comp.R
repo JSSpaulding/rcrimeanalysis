@@ -12,10 +12,12 @@
 #' @param end1 Final date for the first interval of comparison
 #' @param start2 Beginning date for the second interval of comparison
 #' @param end2 Final date for the second interval of comparison
-#' @return Returns a \emph{RasterLayer} object of the net differences between
-#'     kernel density estimates (heat maps) of each specified interval.
+#' @return Returns a \emph{shiny.tag.list} object which contains three leaflet
+#'     widgets: a widget with the calculated KDE from interval 1, a widget with
+#'     the calculated KDE from interval 2, and a widget with a raster of the
+#'     net differences between the KDE (heat maps) of each specified interval.
 #' @author Jamie Spaulding, Keith Morris
-#' @keywords spatial methods hplot
+#' @keywords spatial methods hplot dynamic
 #' @examples
 #' #Using provided dataset from Chicago Data Portal:
 #' data(crimes)

@@ -11,7 +11,7 @@
 #' @return A list where each data frame contains repeat crime incidents for a
 #'     given location.
 #' @author Jamie Spaulding, Keith Morris
-#' @keywords spatial methods hplot dynamic
+#' @keywords spatial
 #' @examples
 #' #Using provided dataset from Chicago Data Portal:
 #' data(crimes)

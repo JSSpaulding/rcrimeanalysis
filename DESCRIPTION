@@ -26,7 +26,6 @@ Imports:
     lubridate,
     KernSmooth,
     pals,
-    prophet,
     raster,
     Rcpp,
     rgdal,

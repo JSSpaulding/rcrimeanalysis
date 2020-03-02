@@ -39,13 +39,12 @@
 #' pars <- near_repeat_eval(data=nr_dat, tz="America/Chicago", epsg="32616")
 #' pars
 #' }
-#' @importFrom akima interp2xyz
-#' @importFrom akima interp
 #' @importFrom igraph graph_from_adjacency_matrix
 #' @importFrom igraph components
 #' @importFrom sp SpatialPoints
 #' @importFrom sp CRS
 #' @importFrom sp spTransform
+#' @importFrom stats approx
 #' @importFrom stats complete.cases
 #' @importFrom stats dist
 #' @importFrom utils txtProgressBar
@@ -104,19 +103,13 @@ near_repeat_eval <- function(data, epsg, tz=NULL){
   eval_out <- cbind(run_seq,series_num)
 
   # Interpolate Evaluation Results -----
-  s=akima::interp(eval_out$TimeThresh, eval_out$DistThresh, eval_out$series_num)
-  dat <- data.frame(akima::interp2xyz(s))
-  names(dat) <- c("x1", "x2", "y")
+  x1_interp <- stats::approx(eval_out$TimeThresh, eval_out$series_num, ties = mean)
+  datx1 <- data.frame(x1 = x1_interp[[1]], y = x1_interp[[2]])
+
+  x2_interp <- stats::approx(eval_out$DistThresh, eval_out$series_num, ties = mean)
+  datx2 <- data.frame(x2 = x2_interp[[1]], y = x2_interp[[2]])
 
   # Calculate Time First Derivative -----
-  dat$y <- ifelse(dat$y < 0, 0, dat$y)
-  x1y <- NULL
-  for (i in 1:length(unique(dat$x1))) {
-    a <- subset(dat, dat$x1 == unique(dat$x1)[i])
-    x1y[i] <- mean(a$y)
-  }
-
-  datx1 <- data.frame(x1 = unique(dat$x1), y = x1y)
   dy <- NULL
   dx <- NULL
   for (i in 2:nrow(datx1)) {
@@ -140,13 +133,6 @@ near_repeat_eval <- function(data, epsg, tz=NULL){
   time_out <- floor(data[which.min(data$y),1]) #Optimal Distance Parameter
 
   # Calculate Distance First Derivative -----
-  x2y <- NULL
-  for (i in 1:length(unique(dat$x2))) {
-    a <- subset(dat, dat$x2 == unique(dat$x2)[i])
-    x2y[i] <- mean(a$y)
-  }
-  datx2 <- data.frame(x2 = unique(dat$x2), y = x2y)
-
   dy <- NULL
   dx <- NULL
   for (i in 2:nrow(datx2)) {
@@ -166,7 +152,7 @@ near_repeat_eval <- function(data, epsg, tz=NULL){
   }
   second <- dy2/dx2
   data2 <- data.frame(x = datx2.1$x, y = second)
-  dist_out <- floor(data2[which.min(data2$y),1]) #Optimal Time Parameter
+  dist_out <- floor(data2[which.min(data2$y),1]) #Optimal Dist Parameter
 
   results <- data.frame(distance = dist_out, time = time_out)
   return(results)

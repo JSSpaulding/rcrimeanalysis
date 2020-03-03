@@ -31,11 +31,10 @@ This function performs an evaluation of given crime incidents to
     parameters are tested using a full factorial design using the set of
     incident locations to determine the frequency of occurrence given each
     set of parameters. The results of the full factorial assessment are then
-    modeled into a three-dimensional surface through interpolation. From this
-    surface, the second derivative is calculated to determine the inflection
-    point. The inflection point represents the change in frequency of detected
-    incidents which near repeat. This is done in both the time and distance
-    domains.
+    modeled through interpolation and the second derivative is calculated to
+    determine the inflection point. The inflection point represents the
+    change in frequency of detected incidents which near repeat. Determination
+    of the inflection point is completed for both the time and distance domains.
 }
 \examples{
 \dontshow{

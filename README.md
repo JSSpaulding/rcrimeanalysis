@@ -1,4 +1,4 @@
-# rcrimeanalysis: An Implementation of Crime Analysis Methods
+# rcrimeanalysis: An Implementation of Crime Analysis Methods <a><img src='../master/images/rcrimeanalysis-hex.png' align="right" height="139" /></a>
 
 <!-- badges: start -->
 ![CRAN Version](https://www.r-pkg.org/badges/version-ago/rcrimeanalysis)

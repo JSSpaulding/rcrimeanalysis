@@ -63,13 +63,17 @@ repeat_out[[1]] #prints first repeat crime incident table
 
 ### kde_int_comp
 
-The *kde_int_comp* function calculates and compares the kernel density estimate (heat maps) of crime incident locations from two given intervals. The function returns a net difference raster illustrating changes between the spatial crime distributions across the specified intervals for comparion. This is also useful in identifying crime displacement. Additionally, a shiny.tag.list object which contains three leaflet widgets: a widget with the calculated KDE from interval 1, a widget with the calculated KDE from interval 2, and a widget with a raster of the net differences between the KDE (heat maps) of each specified interval is returned for interactive visualization of the results.
+The *kde_int_comp* function calculates and compares the kernel density estimate (heat maps) of crime incident locations from two given intervals. The function returns a net difference raster illustrating changes between the spatial crime distributions across the specified intervals for comparion. This is also useful in identifying crime displacement. Additionally, a shiny.tag.list object which contains three leaflet widgets: a widget with the calculated KDE from interval 1, a widget with the calculated KDE from interval 2, and a widget with a raster of the net differences between the KDE (heat maps) of each specified interval is returned for interactive visualization of the results. The net difference object utilizes an implementation of the parula color pallete for optimal visualization.
 
 ```
 int_out <- kde_int_comp(crimes, start1="1/1/2017", end1="3/1/2017",
                                 start2="1/1/2018", end2="3/1/2018")
 int_out
 ```
+
+An example of the shiny.tag.list object is given below for the above example.
+
+<a><img src='../master/images/kde-interval1.PNG' align="center" height="400" /></a>
 
 ### kde_map
 
@@ -85,6 +89,10 @@ p1 <- crime_sample %>% kde_map(pts = FALSE)
 p2 <- crime_sample %>% kde_map()
 leafsync::sync(p1,p2)
 ```
+
+An example of the resultant map is given below. A zoomed in portion is also shown (right) to illustrate the incident data pop-up. 
+
+<a><img src='../master/images/kde-map1.png' align="center" height="400" /></a>
 
 ### near_repeat_analysis
 
@@ -135,6 +143,11 @@ library(prophet)
 ts_forecast(crimes, start = c(2017, 1, 1))
 ```
 
+An example forecast plot is given below for the above example.
+
+<a><img src='../master/images/ts-forecast.png' align="center" height="500" /></a>
+
+
 ### ts_monthly_decomp
 
 The **ts_monthly_decomp** function transforms traditional crime data and plots the resultant components of a time series which has been decomposed into seasonal, trend and irregular components using Loess smoothing.
@@ -143,6 +156,10 @@ The **ts_monthly_decomp** function transforms traditional crime data and plots t
 test <- ts_month_decomp(crimes, 2017)
 plot(test)
 ```
+
+An example decomposition plot is given below for homicides from the *crimes* dataset.
+
+<a><img src='../master/images/homicide-ts.png' align="center" height="500" /></a>
 
 ## Built With
 

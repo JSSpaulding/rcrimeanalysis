@@ -4,8 +4,13 @@
 \alias{near_repeat_analysis}
 \title{Near Repeat Analysis of Crime Incidents with Crime Linkage Output}
 \usage{
-near_repeat_analysis(data, epsg, dist_thresh = NULL,
-  time_thresh = NULL, tz = NULL)
+near_repeat_analysis(
+  data,
+  epsg,
+  dist_thresh = NULL,
+  time_thresh = NULL,
+  tz = NULL
+)
 }
 \arguments{
 \item{data}{Data frame of crime or RMS data. See provided Chicago Data Portal

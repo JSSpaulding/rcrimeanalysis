@@ -4,7 +4,8 @@
 \name{crimes}
 \alias{crimes}
 \title{Example data from the Chicago Data Portal}
-\format{A data frame with 25000 rows and 22 variables.
+\format{
+A data frame with 25000 rows and 22 variables.
 \describe{
   \item{id}{Unique identifier for the record.}
   \item{case_number}{The Chicago Police Department Records Division Number, which is unique to the incident.}
@@ -28,7 +29,8 @@
   \item{latitude}{The latitude of the location where the incident occurred.}
   \item{longitude}{The longitude of the location where the incident occurred.}
   \item{location}{Concatenation of latitude and longitude.}
-}}
+}
+}
 \source{
 \url{https://data.cityofchicago.org/Public-Safety/Crimes-2001-to-present/ijzp-q8t2/data}
 }

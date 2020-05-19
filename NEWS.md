@@ -1,12 +1,14 @@
 # rcrimeanalysis (Development Version)
 
-* Added hex sticker for package.
+* Development version has no changes from 0.4.2.
 
 # rcrimeanalysis 0.4.2
 
 * Added /vignettes with examples of package functionality.
 
 * Added NEWS.md for entire package history.
+
+* Added hex sticker for package.
 
 # rcrimeanalysis 0.4.1
 

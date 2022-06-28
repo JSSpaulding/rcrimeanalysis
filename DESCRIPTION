@@ -3,7 +3,7 @@ Type: Package
 Title: An Implementation of Crime Analysis Methods
 Version: 0.4.2
 Author: Jamie Spaulding and Keith Morris
-Maintainer: Jamie Spaulding <jspauldi@mix.wvu.edu>
+Maintainer: Jamie Spaulding <jspaulding02@hamline.edu>
 Description: An implementation of functions for the analysis of crime incident or records
   management system data. The package implements analysis algorithms scaled for city
   or regional crime analysis units. The package provides functions for kernel density

@@ -17,7 +17,6 @@ License: GPL-3
 Encoding: UTF-8
 LazyData: true
 Imports:
-    dplyr,
     forecast,
     ggmap,
     htmltools,
@@ -28,11 +27,11 @@ Imports:
     KernSmooth,
     pals,
     raster,
-    Rcpp,
     sp,
     stats
 RoxygenNote: 7.2.1
 Suggests: 
+    dplyr,
     knitr,
     rmarkdown
 VignetteBuilder: knitr

@@ -15,7 +15,7 @@ knitr::opts_chunk$set(
 )
 
 library(rcrimeanalysis)
-library(dplyr)
+require(dplyr)
 ```
 
 The *rcrimeanalysis* package is designed for the analysis of crime incident data from record management systems utilized by policing and security agencies throughout the United States. The package was contributed to provide a robust open source platform with crime analysis functionality since wide variations exist in the techniques that departments use, the levels of sophistication that police managers possess, and the frequency with which agencies engage in crime mapping. 

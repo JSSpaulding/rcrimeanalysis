@@ -23,7 +23,6 @@
 #' data(crimes)
 #' int_out <- kde_int_comp(crimes, start1="1/1/2017", end1="3/1/2017",
 #'                                 start2="1/1/2018", end2="3/1/2018")
-#' @import rgdal
 #' @import leaflet
 #' @importFrom graphics plot.new
 #' @importFrom grDevices contourLines

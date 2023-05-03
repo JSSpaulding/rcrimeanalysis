@@ -1,6 +1,10 @@
 # rcrimeanalysis (Development Version)
 
-* Development version has no changes from 0.4.2.
+* Development version has no changes from 0.4.3.
+
+# rcrimeanalysis 0.4.3
+
+* Removed dependency on `rgdal` functionality. `rgdal` set to be archived Oct. 2023.
 
 # rcrimeanalysis 0.4.2
 

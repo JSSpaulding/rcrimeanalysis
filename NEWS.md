@@ -2,9 +2,11 @@
 
 * Development version has no changes from 0.4.3.
 
-# rcrimeanalysis 0.4.3
+# rcrimeanalysis 0.5.0
 
-* Removed dependency on `rgdal` functionality. `rgdal` set to be archived Oct. 2023.
+* Removed package dependency on `rgdal` functionality. `rgdal` set to be archived Oct. 2023. `near_repeat_analysis()` and `near_repeat_eval()` were changed to depend on 'terra' for gdal integration. 
+
+* Vignettes updated.
 
 # rcrimeanalysis 0.4.2
 

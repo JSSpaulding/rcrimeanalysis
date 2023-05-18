@@ -13,7 +13,6 @@ knitr::opts_chunk$set(
   collapse = TRUE,
   comment = "#>"
 )
-devtools::install_github("JSSpaulding/rcrimeanalysis")
 library(rcrimeanalysis)
 require(dplyr)
 ```

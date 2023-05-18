@@ -40,6 +40,9 @@
 #' @importFrom igraph components
 #' @importFrom stats complete.cases
 #' @importFrom stats dist
+#' @importFrom terra crds
+#' @importFrom terra crs
+#' @importFrom terra vect
 #' @export
 near_repeat_analysis <- function(data, epsg, dist_thresh=NULL, time_thresh=NULL, tz=NULL){
   # Set Defaults -----
@@ -51,15 +54,14 @@ near_repeat_analysis <- function(data, epsg, dist_thresh=NULL, time_thresh=NULL,
   # Date Formats -----
   data$datetime <- as.POSIXct(data$date, tz = tz, "%m/%d/%Y %H:%M") #date-time object
   data$date <- as.Date(data$date, "%m/%d/%Y %H:%M") #ensure date column is in Date format
-  crime <- data[stats::complete.cases(data), ] #only complete cases
-  cord.dec = sp::SpatialPoints(cbind(crime$longitude, crime$latitude),
-                               proj4string = sp::CRS("+proj=longlat")) #object of spatial points class
 
-  # Transform Coordinates to UTM using EPSG -----
-  cord.UTM <- sp::spTransform(cord.dec, sp::CRS(crs)) #(lat,lon) to coordinate system in EPSG
-  coordsout <- as.data.frame(cord.UTM@coords) #makes df of coordinates
-  crime$x1 <- coordsout$coords.x1 #bind coordinate 1 to crime data
-  crime$x2 <- coordsout$coords.x2 #bind coordinate 2 to crime data
+  # Set Coordinate Reference System ----
+  crime <- data[stats::complete.cases(data), ] #only complete cases
+  vcoord <- terra::vect(cbind(crime$longitude, crime$latitude))
+  terra::crs(vcoord) <- crs
+  coordsout <- terra::crds(vcoord)
+  crime$x1 <- coordsout[,1] #bind coordinate 1 to crime data
+  crime$x2 <- coordsout[,2] #bind coordinate 2 to crime data
 
   # Near Repeat Analysis using Threshold Parameters -----
   SpatDist <- as.matrix(stats::dist(crime[,c('x1','x2')])) < dist_thresh  #1 if under distance

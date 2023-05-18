@@ -28,7 +28,8 @@ Imports:
     pals,
     raster,
     sp,
-    stats
+    stats,
+    terra
 RoxygenNote: 7.2.1
 Suggests: 
     dplyr,

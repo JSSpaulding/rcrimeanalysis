@@ -159,7 +159,7 @@ crime_samp <- head(crimes, n = 1000)
 out <- near_repeat_analysis(data = crime_samp, 
                             tz = "America/Chicago",
                             epsg = "32616")
-igraph::plot.igraph(out[[26]])
+igraph::plot.igraph(out[[5]],layout=igraph::layout.sphere)
 ```
 
 Each vertex of the graph is a crime incident and each edge represents the linkage of these incidents within the specified spatial and temporal parameters. The linkage networks provide potential crime networks discovered under the near repeat premise for intelligence driven police investigation and intervention.

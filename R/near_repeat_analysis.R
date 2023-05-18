@@ -33,9 +33,6 @@
 #' nr_data <- head(crimes, n = 1000) #truncate dataset for near repeat analysis
 #' out <- near_repeat_analysis(data=nr_data,tz="America/Chicago",epsg="32616")
 #'
-#' @importFrom sp SpatialPoints
-#' @importFrom sp CRS
-#' @importFrom sp spTransform
 #' @importFrom igraph graph_from_adjacency_matrix
 #' @importFrom igraph components
 #' @importFrom stats complete.cases

@@ -40,12 +40,12 @@
 #' }
 #' @importFrom igraph graph_from_adjacency_matrix
 #' @importFrom igraph components
-#' @importFrom sp SpatialPoints
-#' @importFrom sp CRS
-#' @importFrom sp spTransform
 #' @importFrom stats approx
 #' @importFrom stats complete.cases
 #' @importFrom stats dist
+#' @importFrom terra crds
+#' @importFrom terra crs
+#' @importFrom terra vect
 #' @importFrom utils txtProgressBar
 #' @importFrom utils setTxtProgressBar
 #' @export
@@ -74,14 +74,13 @@ near_repeat_eval <- function(data, epsg, tz=NULL){
     a <- run_seq[i,]
     DistThresh <- a[,1]
     TimeThresh <- a[,2]
-    cord.dec = sp::SpatialPoints(cbind(crime$longitude, crime$latitude),
-                               proj4string = sp::CRS("+proj=longlat"))
 
-    # Transform Coordinates to UTM using EPSG -----
-    cord.UTM <- sp::spTransform(cord.dec, sp::CRS(crs)) #(lat,lon) to coordinate
-    coordsout <- as.data.frame(cord.UTM@coords) #makes df of coordinates
-    crime$x1 <- coordsout$coords.x1 #bind coordinate 1 to crime data
-    crime$x2 <- coordsout$coords.x2 #bind coordinate 2 to crime data
+    # Set Coordinate Reference System ----
+    vcoord <- terra::vect(cbind(crime$longitude, crime$latitude))
+    terra::crs(vcoord) <- crs
+    coordsout <- terra::crds(vcoord)
+    crime$x1 <- coordsout[,1] #bind coordinate 1 to crime data
+    crime$x2 <- coordsout[,2] #bind coordinate 2 to crime data
 
     # Near Repeat Analysis using Threshold Parameters -----
     SpatDist <- as.matrix(stats::dist(crime[,c('x1','x2')])) < DistThresh

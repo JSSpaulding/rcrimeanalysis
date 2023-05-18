@@ -1,7 +1,7 @@
 Package: rcrimeanalysis
 Type: Package
 Title: An Implementation of Crime Analysis Methods
-Version: 0.4.3
+Version: 0.5.0
 Author: Jamie Spaulding and Keith Morris
 Maintainer: Jamie Spaulding <jspaulding02@hamline.edu>
 Description: An implementation of functions for the analysis of crime incident or records
@@ -34,7 +34,6 @@ RoxygenNote: 7.2.3
 Suggests: 
     dplyr,
     knitr,
-    rmarkdown,
-    testthat (>= 3.0.0)
+    rmarkdown
 VignetteBuilder: knitr
 Config/testthat/edition: 3

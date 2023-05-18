@@ -7,7 +7,7 @@
 #'     API requires registered credentials (Google Cloud Platform), see the
 #'     ggmap package for more details at \url{https://github.com/dkahle/ggmap}.
 #'     Note that when using this function you are agreeing to the Google Maps
-#'     API Terms of Service at \url{https://developers.google.com/maps/terms}.
+#'     API Terms of Service at \url{https://cloud.google.com/maps-platform/terms/}.
 #' @param location a character vector of physical addresses (e.g. 1600 University Ave., Morgantown, WV)
 #' @return Returns a two column matrix with the latitude and longitude of each location queried.
 #' @author Jamie Spaulding, Keith Morris

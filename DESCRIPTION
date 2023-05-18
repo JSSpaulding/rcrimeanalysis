@@ -30,7 +30,7 @@ Imports:
     sp,
     stats,
     terra
-RoxygenNote: 7.2.1
+RoxygenNote: 7.2.3
 Suggests: 
     dplyr,
     knitr,

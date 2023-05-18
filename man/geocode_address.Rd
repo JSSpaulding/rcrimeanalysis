@@ -18,7 +18,7 @@ Geocodes a location (determines latitude and longitude from
     API requires registered credentials (Google Cloud Platform), see the
     ggmap package for more details at \url{https://github.com/dkahle/ggmap}.
     Note that when using this function you are agreeing to the Google Maps
-    API Terms of Service at \url{https://developers.google.com/maps/terms}.
+    API Terms of Service at \url{https://cloud.google.com/maps-platform/terms/}.
 }
 \examples{
 \dontshow{
